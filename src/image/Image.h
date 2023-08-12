@@ -8,7 +8,6 @@
 /// </summary>
 class Image {
 public:
-    // TODO: Fix LNK1120 Link error
     Image(const char* file, const int forceChannels = 0);
     Image(const Image& other);
     ~Image();

@@ -10,6 +10,7 @@
 #include "../../ext/stb/stb_image_write.h"
 
 Image::Image(const char* file, const int forceChannels) {
+
 	if (!Image::Read(file, forceChannels)) {
 		std::cout << "Read failed " << file << '\n';
 	}
@@ -24,6 +25,7 @@ Image::Image(const Image& other) {
 	m_w = other.m_w;
 	m_h = other.m_h;
 	m_channels = other.m_channels;
+	m_size = other.m_size;
 
 	m_data = new uint8_t[m_size];
 
@@ -42,6 +44,7 @@ Image Image::operator=(const Image& other) {
 	m_w = other.m_w;
 	m_h = other.m_h;
 	m_channels = other.m_channels;
+	m_size = other.m_size;
 
 	m_data = new uint8_t[m_size];
 
