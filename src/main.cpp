@@ -3,9 +3,7 @@
 
 #include "main.h"
 
-int main() {
-	std::cout << "Hello CMake.\n";
-
+int main(int argc, char* argv[]) {
 	// Read settings.json
 
 	std::ifstream f("settings.json");
@@ -17,12 +15,16 @@ int main() {
 	bool repeat = data["repeat"];
 
 	// read original image
+	//Image inputImg = Image(input.c_str(), 3);
+	Image inputImg(input.c_str(), 3);
 
-	Image inputImg = Image(input.c_str(), 3);
+	Image outputImg = inputImg;
+	Image sigBits = inputImg;
 
-	//std::cout << input << '\n';
+	outputImg.Write(output.c_str());
+	sigBits.Write("img/significantBits.png");
 
-	//std::cin.get();
+	std::cout << "Press enter to exit...\n";
 	std::cin.ignore();
 	return 0;
 }
