@@ -1,0 +1,6 @@
+{
+  "in": "img/image.png",
+  "out": "img/out.png",
+  "significant_bits": 2,
+  "repeat": true
+}
