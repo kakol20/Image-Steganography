@@ -9,12 +9,12 @@ int main(int argc, char* argv[]) {
 	std::ifstream f("settings.json");
 	json settings = json::parse(f);
 
-	std::string input = settings["in"];
-	std::string output = settings["out"];
-	unsigned int significantBits = settings["significant_bits"];
-	std::string sigBitImg = settings["significant_bits_img"];
 	bool repeat = settings["repeat"];
 	std::string dataInput = settings["text"];
+	std::string input = settings["in"];
+	std::string output = settings["out"];
+	std::string sigBitImg = settings["significant_bits_img"];
+	unsigned int significantBits = settings["significant_bits"];
 
 	// read original image
 	//Image inputImg = Image(input.c_str(), 3);
@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 
 	Image outputImg = inputImg;
 	Image sigBits = inputImg;
-	sigBits.Clear();
+	//sigBits.Clear();
 
 	size_t imageIndex = 0;
 	size_t dataIndex = 0;
