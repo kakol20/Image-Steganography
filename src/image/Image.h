@@ -23,6 +23,8 @@ public:
 	inline uint8_t GetData(const size_t index) const { return m_data[index]; };
 	inline void SetData(const size_t index, const uint8_t data) { m_data[index] = data; };
 
+	void Clear();
+
 public:
 	enum class ImageType {
 		PNG, JPG, BMP, TGA, NA

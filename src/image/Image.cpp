@@ -10,7 +10,6 @@
 #include "../../ext/stb/stb_image_write.h"
 
 Image::Image(const char* file, const int forceChannels) {
-
 	if (!Image::Read(file, forceChannels)) {
 		std::cout << "Read failed " << file << '\n';
 	}
@@ -101,6 +100,12 @@ bool Image::Write(const char* file) {
 	}
 
 	return success != 0;
+}
+
+void Image::Clear() {
+	for (size_t i = 0; i < m_size; i++) {
+		m_data[i] = 0;
+	}
 }
 
 Image::ImageType Image::GetFileType(const char* file) {

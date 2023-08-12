@@ -16,4 +16,6 @@ using json = nlohmann::json;
 
 // TODO: Reference additional headers your program requires here.
 
+float Map(const float val, const float fromMin, const float fromMax, const float toMin, const float toMax);
+
 #endif // !MAIN_H
