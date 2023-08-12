@@ -59,14 +59,20 @@ int main(int argc, char* argv[]) {
 
 		dataIndex++;
 	}
-	
+
 	// generate least significant bits image
 
 	for (size_t i = 0; i < inputImg.GetSize(); i++) {
+#ifdef USE_MAP
 		float leastSignificantBits = (float)(inputImg.GetData(i) & bitMask);
 		leastSignificantBits = std::roundf(Map(leastSignificantBits, 0.f, (float)bitMask, 0.f, 255.f));
 
 		sigBits.SetData(i, (uint8_t)leastSignificantBits);
+#else
+		uint8_t leastSignificantBits = (255 / bitMask) * (inputImg.GetData(i) & bitMask);
+
+		sigBits.SetData(i, leastSignificantBits);
+#endif // USE_MAP
 	}
 
 	outputImg.Write(output.c_str());
@@ -77,9 +83,11 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
+#ifdef USE_MAP
 float Map(const float val, const float fromMin, const float fromMax, const float toMin, const float toMax) {
 	float factor = (val - fromMin) / (fromMax - fromMin);
 	float lerp = ((toMax - toMin) * factor) + toMin;
 	float out = lerp > toMax ? toMax : lerp;
 	return out < toMin ? toMin : out;
 }
+#endif // USE_MAP

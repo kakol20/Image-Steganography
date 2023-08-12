@@ -4,6 +4,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+//#define USE_MAP
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -16,6 +18,9 @@ using json = nlohmann::json;
 
 // TODO: Reference additional headers your program requires here.
 
+#ifdef USE_MAP
 float Map(const float val, const float fromMin, const float fromMax, const float toMin, const float toMax);
+#endif // USE_MAP
+
 
 #endif // !MAIN_H
