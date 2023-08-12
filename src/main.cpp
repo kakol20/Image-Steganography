@@ -3,7 +3,7 @@
 
 #include "main.h"
 
-int main() {
+int main(int argc, char* argv[]) {
 	// Read settings.json
 
 	std::ifstream f("settings.json");
@@ -16,8 +16,15 @@ int main() {
 
 	// read original image
 	//Image inputImg = Image(input.c_str(), 3);
-	Image inputImh(input.c_str(), 3);
+	Image inputImg(input.c_str(), 3);
 
+	Image outputImg = inputImg;
+	Image sigBits = inputImg;
+
+	outputImg.Write(output.c_str());
+	sigBits.Write("img/significantBits.png");
+
+	std::cout << "Press enter to exit...\n";
 	std::cin.ignore();
 	return 0;
 }

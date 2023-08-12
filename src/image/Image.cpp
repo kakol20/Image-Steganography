@@ -1,14 +1,10 @@
 #include "Image.h"
 
 #include <iostream>
+#include <cstring>
 
-#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
-#endif // !STB_IMAGE_IMPLEMENTATION
-
-#ifndef STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#endif // !STB_IMAGE_WRITE_IMPLEMENTATION
 
 #include "../../ext/stb/stb_image.h"
 #include "../../ext/stb/stb_image_write.h"
@@ -24,7 +20,6 @@ Image::Image(const char* file, const int forceChannels) {
 
 Image::Image(const Image& other) {
 	//stbi_image_free(m_data);
-	delete[] m_data;
 
 	m_w = other.m_w;
 	m_h = other.m_h;

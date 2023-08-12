@@ -13,12 +13,8 @@ project ("Image Steganography")
 
 # set(IMGSteganography "Image Steganography")
 
-#add_definitions(-DSTB_IMAGE_IMPLEMENTATION -DSTB_IMAGE_WRITE_IMPLEMENTATION)
-add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
-add_compile_definitions(STB_IMAGE_WRITE_IMPLEMENTATION)
-
 # Add source to this project's executable.
-add_executable (IMGSteganography "src/main.h" "src/main.cpp")
+add_executable (IMGSteganography "src/main.h" "src/main.cpp" "src/image/Image.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET IMGSteganography PROPERTY CXX_STANDARD 20)
