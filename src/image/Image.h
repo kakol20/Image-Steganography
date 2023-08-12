@@ -2,12 +2,6 @@
 
 #include <cstdint>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "../../ext/stb/stb_image.h"
-
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "../../ext/stb/stb_image_write.h"
-
 /// <summary>
 /// Basic implementation
 /// </summary>
@@ -32,7 +26,7 @@ public:
 	};
 
 private:
-	uint8_t* m_data = NULL;
+	uint8_t* m_data;
 	size_t m_size = 0;
 	int m_w, m_h, m_channels;
 
