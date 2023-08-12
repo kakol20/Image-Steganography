@@ -4,5 +4,11 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
+#include <string>
+
+#include "ext/json/json.hpp"
+
+using json = nlohmann::json;
 
 // TODO: Reference additional headers your program requires here.
