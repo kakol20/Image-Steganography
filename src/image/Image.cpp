@@ -13,7 +13,6 @@
 #include "../../ext/stb/stb_image.h"
 #include "../../ext/stb/stb_image_write.h"
 
-
 Image::Image(const char* file, const int forceChannels) {
 	if (!Image::Read(file, forceChannels)) {
 		std::cout << "Read failed " << file << '\n';
@@ -57,7 +56,7 @@ Image Image::operator=(const Image& other) {
 }
 
 bool Image::Read(const char* file, const int forceChannels) {
-	if(forceChannels > 0 && forceChannels <= 4) {
+	if (forceChannels > 0 && forceChannels <= 4) {
 		m_data = stbi_load(file, &m_w, &m_h, &m_channels, forceChannels);
 	}
 	else {

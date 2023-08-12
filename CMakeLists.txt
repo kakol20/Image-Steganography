@@ -9,20 +9,13 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-#define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-
-#add_library(stb_image SHARED "ext/stb/stb_image.h")
-#set_target_properties(stb_image PROPERTIES LINKER_LANGUAGE C)
-#target_compile_definitions(stb_image PRIVATE STB_IMAGE_IMPLEMENTATION)
-
-#add_library(stb_image_write SHARED "ext/stb/stb_image_write.h")
-#set_target_properties(stb_image_write PROPERTIES LINKER_LANGUAGE C)
-#target_compile_definitions(stb_image_write PRIVATE STB_IMAGE_WRITE_IMPLEMENTATION)
-
 project ("Image Steganography")
 
 # set(IMGSteganography "Image Steganography")
+
+#add_definitions(-DSTB_IMAGE_IMPLEMENTATION -DSTB_IMAGE_WRITE_IMPLEMENTATION)
+add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
+add_compile_definitions(STB_IMAGE_WRITE_IMPLEMENTATION)
 
 # Add source to this project's executable.
 add_executable (IMGSteganography "src/main.h" "src/main.cpp")

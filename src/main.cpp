@@ -3,8 +3,6 @@
 
 #include "main.h"
 
-#include "image/Image.h"
-
 int main() {
 	// Read settings.json
 
@@ -17,7 +15,8 @@ int main() {
 	bool repeat = data["repeat"];
 
 	// read original image
-	Image inputImg = Image(input.c_str(), 3);
+	//Image inputImg = Image(input.c_str(), 3);
+	Image inputImh(input.c_str(), 3);
 
 	std::cin.ignore();
 	return 0;

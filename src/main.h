@@ -9,7 +9,8 @@
 
 #include "../ext/json/json.hpp"
 
-using json = nlohmann::json;
+#include "image/Image.h"
 
+using json = nlohmann::json;
 
 // TODO: Reference additional headers your program requires here.
