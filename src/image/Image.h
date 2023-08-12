@@ -2,18 +2,25 @@
 
 #include <cstdint>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "../../ext/stb/stb_image.h"
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../../ext/stb/stb_image_write.h"
+
 /// <summary>
 /// Basic implementation
 /// </summary>
 class Image {
 public:
-	Image(const char* file, const int forceChannels = -1);
+	// TODO: Fix LNK1120 Link error
+	Image(const char* file, const int forceChannels = 0);
 	Image(const Image& other);
 	~Image();
 
 	Image operator=(const Image& other);
 
-	bool Read(const char* file, const int forceChannels = -1);
+	bool Read(const char* file, const int forceChannels = 0);
 	bool Write(const char* file);
 
 	inline int GetChannels() const { return m_channels; };

@@ -2,12 +2,6 @@
 
 #include "Image.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-
-#include "../../ext/stb/stb_image.h"
-#include "../../ext/stb/stb_image_write.h"
-
 Image::Image(const char* file, const int forceChannels) {
 	if (!Read(file, forceChannels)) {
 		std::cout << "Read failed " << file << '\n';
@@ -18,7 +12,7 @@ Image::Image(const char* file, const int forceChannels) {
 }
 
 Image::Image(const Image& other) {
-	stbi_image_free(m_data);
+	//stbi_image_free(m_data);
 
 	m_w = other.m_w;
 	m_h = other.m_h;

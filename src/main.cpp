@@ -1,9 +1,7 @@
 ﻿// Image Steganography.cpp : Defines the entry point for the application.
 //
 
-#include "Image Steganography.h"
-
-#include "src/image/Image.h"
+#include "main.h"
 
 int main() {
 	std::cout << "Hello CMake.\n";
@@ -20,7 +18,7 @@ int main() {
 
 	// read original image
 
-	Image inputImg(input.c_str(), 3);
+	Image inputImg = Image(input.c_str(), 3);
 
 	//std::cout << input << '\n';
 
