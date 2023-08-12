@@ -1,5 +1,5 @@
 {
-  "in": "img/image.png",
+  "in": "img/tree.jpg",
   "out": "img/out.png",
   "significant_bits": 2,
   "repeat": true
