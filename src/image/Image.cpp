@@ -1,15 +1,21 @@
+#include "Image.h"
+
 #include <iostream>
 
+#ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
+#endif // !STB_IMAGE_IMPLEMENTATION
+
+#ifndef STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#endif // !STB_IMAGE_WRITE_IMPLEMENTATION
 
 #include "../../ext/stb/stb_image.h"
 #include "../../ext/stb/stb_image_write.h"
 
-#include "Image.h"
 
 Image::Image(const char* file, const int forceChannels) {
-	if (!Read(file, forceChannels)) {
+	if (!Image::Read(file, forceChannels)) {
 		std::cout << "Read failed " << file << '\n';
 	}
 	else {
@@ -85,6 +91,8 @@ bool Image::Write(const char* file) {
 		success = 0;
 		break;
 	default:
+		std::cout << "File type not supported\nPNG, JPG, BMP or TGA";
+		success = 0;
 		break;
 	}
 

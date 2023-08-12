@@ -3,9 +3,9 @@
 
 #include "main.h"
 
-int main() {
-	std::cout << "Hello CMake.\n";
+#include "image/Image.h"
 
+int main() {
 	// Read settings.json
 
 	std::ifstream f("settings.json");
@@ -17,12 +17,8 @@ int main() {
 	bool repeat = data["repeat"];
 
 	// read original image
-
 	Image inputImg = Image(input.c_str(), 3);
 
-	//std::cout << input << '\n';
-
-	//std::cin.get();
 	std::cin.ignore();
 	return 0;
 }

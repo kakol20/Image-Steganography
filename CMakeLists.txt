@@ -12,20 +12,20 @@ endif()
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 
-add_library(stb_image SHARED "ext/stb/stb_image.h")
-set_target_properties(stb_image PROPERTIES LINKER_LANGUAGE C)
-target_compile_definitions(stb_image PRIVATE STB_IMAGE_IMPLEMENTATION)
+#add_library(stb_image SHARED "ext/stb/stb_image.h")
+#set_target_properties(stb_image PROPERTIES LINKER_LANGUAGE C)
+#target_compile_definitions(stb_image PRIVATE STB_IMAGE_IMPLEMENTATION)
 
-add_library(stb_image_write SHARED "ext/stb/stb_image_write.h")
-set_target_properties(stb_image_write PROPERTIES LINKER_LANGUAGE C)
-target_compile_definitions(stb_image_write PRIVATE STB_IMAGE_WRITE_IMPLEMENTATION)
+#add_library(stb_image_write SHARED "ext/stb/stb_image_write.h")
+#set_target_properties(stb_image_write PROPERTIES LINKER_LANGUAGE C)
+#target_compile_definitions(stb_image_write PRIVATE STB_IMAGE_WRITE_IMPLEMENTATION)
 
 project ("Image Steganography")
 
 # set(IMGSteganography "Image Steganography")
 
 # Add source to this project's executable.
-add_executable (IMGSteganography "src/main.cpp" "src/main.h")
+add_executable (IMGSteganography "src/main.h" "src/main.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET IMGSteganography PROPERTY CXX_STANDARD 20)

@@ -9,8 +9,6 @@
 
 #include "../ext/json/json.hpp"
 
-#include "image/Image.h"
-
 using json = nlohmann::json;
 
 
