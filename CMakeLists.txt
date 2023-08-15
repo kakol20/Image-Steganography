@@ -14,7 +14,11 @@ project ("Image Steganography")
 # set(IMGSteganography "Image Steganography")
 
 # Add source to this project's executable.
-add_executable (IMGSteganography "src/main.h" "src/main.cpp" "src/image/Image.cpp" "src/process/Text2Img.cpp" "src/process/Img2Img.cpp")
+add_executable (IMGSteganography "src/main.h" 
+	"src/main.cpp" 
+	"src/image/Image.cpp" 
+	"src/process/Text2Img.cpp" 
+	"src/process/Img2Img.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET IMGSteganography PROPERTY CXX_STANDARD 20)

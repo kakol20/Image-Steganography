@@ -15,6 +15,9 @@ public:
 		const bool repeat,
 		const bool dithered,
 		const std::string outputImg);
+
+private:
+	static size_t GetIndex(const int x, const int y, const int w, const int channels);
 };
 
 #endif // !IMG2IMG_H
