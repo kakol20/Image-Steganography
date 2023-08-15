@@ -1,5 +1,5 @@
 {
-  "process": "text2img",
+  "process": "img2img",
   "text2img": {
     "in": "img/tree.jpg",
     "out": "img/text2img.png",
@@ -11,6 +11,8 @@
   "img2img": {
     "baseImg": "img/tree.jpg",
     "hiddenImg": "img/rubik.png",
+    "significant_bits_img": "img/lsb_img2img.png",
+    "significant_bits": 2,
     "repeat": false,
     "dithered": false,
     "output": "img/img2img.png" 

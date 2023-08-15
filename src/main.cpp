@@ -19,12 +19,23 @@ int main(int argc, char* argv[]) {
 	std::string process = settings["process"];
 
 	if (process == "text2img") {
-		Text2Img::Run(settings["text2img"]["in"],
-			settings["text2img"]["out"],
-			settings["text2img"]["significant_bits_img"],
-			settings["text2img"]["significant_bits"],
-			settings["text2img"]["repeat"],
-			settings["text2img"]["text"]);
+		auto& runSettings = settings[process.c_str()];
+		Text2Img::Run(runSettings["in"],
+			runSettings["out"],
+			runSettings["significant_bits_img"],
+			runSettings["significant_bits"],
+			runSettings["repeat"],
+			runSettings["text"]);
+	}
+	else if (process == "img2img") {
+		auto& runSettings = settings[process.c_str()];
+		Img2Img::Run(runSettings["baseImg"],
+			runSettings["hiddenImg"],
+			runSettings["significant_bits_img"],
+			runSettings["significant_bits"],
+			runSettings["repeat"],
+			runSettings["dithered"],
+			runSettings["output"]);
 	}
 
 	std::cout << "Press enter to exit...\n";
