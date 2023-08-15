@@ -18,6 +18,10 @@ public:
 
 private:
 	static size_t GetIndex(const int x, const int y, const int w, const int channels);
+
+	static uint8_t Dither(const uint8_t value, const int x, const int y, const int factor, const int fromMax, const int toMax);
+	
+	static const unsigned int Threshold[];
 };
 
 #endif // !IMG2IMG_H
