@@ -7,76 +7,36 @@ int main(int argc, char* argv[]) {
 	// Read settings.json
 
 	std::ifstream f("settings.json");
-	json settings = json::parse(f);
+	json settings = json::parse(f, nullptr, true, true);
 
-	bool repeat = settings["repeat"];
+	/*bool repeat = settings["repeat"];
 	std::string dataInput = settings["text"];
 	std::string input = settings["in"];
 	std::string output = settings["out"];
 	std::string sigBitImg = settings["significant_bits_img"];
-	unsigned int significantBits = settings["significant_bits"];
+	unsigned int significantBits = settings["significant_bits"];*/
 
-	// read original image
-	//Image inputImg = Image(input.c_str(), 3);
-	Image inputImg(input.c_str(), 3);
+	std::string process = settings["process"];
 
-	Image outputImg = inputImg;
-	Image sigBits = inputImg;
-	//sigBits.Clear();
-
-	size_t imageIndex = 0;
-	size_t dataIndex = 0;
-
-	uint8_t bitMask = 0;
-	for (int i = 0; i < (int)significantBits; i++) {
-		bitMask = bitMask | (0b1 << i);
+	if (process == "text2img") {
+		auto& runSettings = settings[process.c_str()];
+		Text2Img::Run(runSettings["in"],
+			runSettings["out"],
+			runSettings["significant_bits_img"],
+			runSettings["significant_bits"],
+			runSettings["repeat"],
+			runSettings["text"]);
 	}
-
-	// generate steganography image
-	while (imageIndex < inputImg.GetSize()) {
-		if (dataIndex == dataInput.size() && !repeat) break;
-
-		dataIndex = dataIndex % dataInput.size();
-
-		uint8_t character = (uint8_t)dataInput[dataIndex];
-		size_t bitSize = sizeof(char) * 8;
-
-		for (int i = (int)bitSize - 1; i >= 0; i -= (int)significantBits) {
-			if (imageIndex == inputImg.GetSize()) break;
-
-			int bitshift = i - (significantBits - 1);
-
-			uint8_t bits = (bitMask << bitshift) & character;
-			bits = bits >> bitshift;
-
-			uint8_t imageData = inputImg.GetData(imageIndex);
-			imageData = (imageData & (~bitMask)) | bits;
-
-			inputImg.SetData(imageIndex, imageData);
-
-			imageIndex++;
-		}
-
-		dataIndex++;
+	else if (process == "img2img") {
+		auto& runSettings = settings[process.c_str()];
+		Img2Img::Run(runSettings["baseImg"],
+			runSettings["hiddenImg"],
+			runSettings["significant_bits_img"],
+			runSettings["significant_bits"],
+			runSettings["repeat"],
+			runSettings["dithered"],
+			runSettings["output"]);
 	}
-
-	// generate least significant bits image
-
-	for (size_t i = 0; i < inputImg.GetSize(); i++) {
-#ifdef USE_MAP
-		float leastSignificantBits = (float)(inputImg.GetData(i) & bitMask);
-		leastSignificantBits = std::roundf(Map(leastSignificantBits, 0.f, (float)bitMask, 0.f, 255.f));
-
-		sigBits.SetData(i, (uint8_t)leastSignificantBits);
-#else
-		uint8_t leastSignificantBits = (255 / bitMask) * (inputImg.GetData(i) & bitMask);
-
-		sigBits.SetData(i, leastSignificantBits);
-#endif // USE_MAP
-	}
-
-	outputImg.Write(output.c_str());
-	sigBits.Write("img/leastSignificantBits.png");
 
 	std::cout << "Press enter to exit...\n";
 	std::cin.ignore();
