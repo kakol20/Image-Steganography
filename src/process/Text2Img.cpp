@@ -40,7 +40,7 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 			uint8_t imageData = inputImg.GetData(imageIndex);
 			imageData = (imageData & (~bitMask)) | bits;
 
-			inputImg.SetData(imageIndex, imageData);
+			outputImg.SetData(imageIndex, imageData);
 
 			imageIndex++;
 		}
@@ -51,7 +51,7 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 	// generate least significant bits image
 
 	for (size_t i = 0; i < inputImg.GetSize(); i++) {
-		uint8_t leastSignificantBits = (uint8_t)std::roundf((255.f / (float)bitMask) * (float)(inputImg.GetData(i) & bitMask));
+		uint8_t leastSignificantBits = (uint8_t)std::roundf((255.f / (float)bitMask) * (float)(outputImg.GetData(i) & bitMask));
 
 		sigBits.SetData(i, leastSignificantBits);
 	}
