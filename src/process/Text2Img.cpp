@@ -1,5 +1,7 @@
 #include "Text2Img.h"
 
+#include <cmath>
+
 #include "../image/Image.h"
 
 void Text2Img::Run(const std::string in, const std::string out, const std::string significantBitsImg, const int significantBits, const bool repeat, const std::string text) {
@@ -49,7 +51,7 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 	// generate least significant bits image
 
 	for (size_t i = 0; i < inputImg.GetSize(); i++) {
-		uint8_t leastSignificantBits = (255 / bitMask) * (inputImg.GetData(i) & bitMask);
+		uint8_t leastSignificantBits = (uint8_t)std::roundf((255.f / (float)bitMask) * (float)(inputImg.GetData(i) & bitMask));
 
 		sigBits.SetData(i, leastSignificantBits);
 	}

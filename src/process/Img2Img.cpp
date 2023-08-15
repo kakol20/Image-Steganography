@@ -28,7 +28,6 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 	Image hidden(hiddenImg.c_str(), 3);
 
 	Image output = base;
-	Image lsb = output;
 
 	uint8_t bitMask = 0;
 	for (int i = 0; i < (int)significantBits; i++) {
@@ -58,16 +57,23 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 					uint8_t lsbData = Img2Img::Dither(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, 255);
 
 					output.SetData(baseIndex + i, baseData | hiddenData);
-					lsb.SetData(baseIndex + i, lsbData);
 				}
 				else {
 					uint8_t hiddenData = (hidden.GetData(hiddenIndex + i) >> shiftRight) & bitMask;
 
 					output.SetData(baseIndex + i, baseData | hiddenData);
-					lsb.SetData(baseIndex + i, (255 / bitMask) * hiddenData);
 				}
 			}
 		}
+	}
+
+	Image lsb = output;
+
+	for (size_t i = 0; i < lsb.GetSize(); i++) {
+		uint8_t data = lsb.GetData(i) & bitMask;
+
+		data = (uint8_t)std::roundf((255.f / (float)bitMask) * (float)data);
+		lsb.SetData(i, data);
 	}
 
 	output.Write(outputImg.c_str());
