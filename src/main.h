@@ -13,6 +13,7 @@
 #include "../ext/json/json.hpp"
 
 #include "image/Image.h"
+#include "process/Text2Img.h"
 
 using json = nlohmann::json;
 
