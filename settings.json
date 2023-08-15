@@ -13,7 +13,7 @@
     "hiddenImg": "img/rubik.png",
     "significant_bits_img": "img/lsb_img2img.png",
     "significant_bits": 2,
-    "repeat": false,
+    "repeat": true,
     "dithered": false,
     "output": "img/img2img.png" 
   }
