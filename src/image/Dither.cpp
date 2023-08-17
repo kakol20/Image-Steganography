@@ -20,9 +20,33 @@ const unsigned int Dither::BayerThreshold[] = {
 	 42, 234,  26, 218,  38, 230,  22, 214,  41, 233,  25, 217,  37, 229,  21, 213,
 	170, 106, 154,  90, 166, 102, 150,  86, 169, 105, 153,  89, 165, 101, 149,  85
 };
+Image Dither::BlueNoiseThreshold = Image("img/LDR_LLL1_0.png", 1);
+
+//void Dither::Init() {
+//	Dither::BlueNoiseThreshold = Image("img/LDR_LLL1_0.png", 1);
+//}
 
 uint8_t Dither::BayerDither(const uint8_t value, const int x, const int y, const int factor, const int fromMax, const int toMax) {
 	float threshold = (float)Dither::BayerThreshold[(x % 16) + (y % 16) * 16] / 256.f;
+	float octet = 1.f / (float)factor;
+
+	float v = (float)value / (float)fromMax;
+	v = v + octet * (threshold - 0.5f);
+	v = std::roundf(v * (float)factor) / (float)factor;
+
+	// clamp
+
+	v = v > 1.f ? 1.f : v;
+	v = v < 0.f ? 0.f : v;
+
+	v *= (float)toMax;
+
+	return (uint8_t)std::roundf(v);
+}
+
+uint8_t Dither::BlueNoiseDither(const uint8_t value, const int x, const int y, const int factor, const int fromMax, const int toMax) {
+	//float threshold = (float)Dither::BayerThreshold[(x % 16) + (y % 16) * 16] / 256.f;
+	float threshold = (float)Dither::BlueNoiseThreshold.GetData((size_t)((x % 16) + (y % 16) * 16)) / 256.f;
 	float octet = 1.f / (float)factor;
 
 	float v = (float)value / (float)fromMax;

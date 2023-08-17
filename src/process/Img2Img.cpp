@@ -35,7 +35,7 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 
 				if (dithered) {
 					// do nothing for now
-					uint8_t hiddenData = Dither::BayerDither(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
+					uint8_t hiddenData = Dither::BlueNoiseDither(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
 
 					output.SetData(baseIndex + i, baseData | hiddenData);
 				}
