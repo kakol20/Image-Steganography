@@ -16,6 +16,8 @@ int main(int argc, char* argv[]) {
 	std::string sigBitImg = settings["significant_bits_img"];
 	unsigned int significantBits = settings["significant_bits"];*/
 
+	//Dither::Init();
+
 	std::string process = settings["process"];
 
 	if (process == "text2img") {
