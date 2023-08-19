@@ -1,5 +1,4 @@
-#ifndef TEXT2IMG_H
-#define TEXT2IMG_H
+#pragma once
 
 #include <string>
 
@@ -10,5 +9,3 @@ public:
 
 	static void Run(const std::string in, const std::string out, const std::string significantBitsImg, const int significantBits, const bool repeat, const std::string text);
 };
-
-#endif // !TEXT2IMG_H

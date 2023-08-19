@@ -1,5 +1,4 @@
-#ifndef IMG2IMG_H
-#define IMG2IMG_H
+#pragma once
 
 #include <string>
 
@@ -19,5 +18,3 @@ public:
 private:
 	static size_t GetIndex(const int x, const int y, const int w, const int channels);
 };
-
-#endif // !IMG2IMG_H
