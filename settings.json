@@ -1,5 +1,5 @@
 {
-  "process": "text2img",
+  "process": "img2img",
   "text2img": {
     "in": "img/suzanne.png",
     "out": "img/text2img.png",

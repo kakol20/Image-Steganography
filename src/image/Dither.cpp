@@ -46,7 +46,7 @@ uint8_t Dither::BayerDither(const uint8_t value, const int x, const int y, const
 
 uint8_t Dither::BlueNoiseDither(const uint8_t value, const int x, const int y, const int factor, const int fromMax, const int toMax) {
 	//float threshold = (float)Dither::BayerThreshold[(x % 16) + (y % 16) * 16] / 256.f;
-	float threshold = (float)Dither::BlueNoiseThreshold.GetData((size_t)((x % 16) + (y % 16) * 16)) / 256.f;
+	float threshold = (float)Dither::BlueNoiseThreshold.GetData((size_t)((x % 64) + (y % 64) * 64)) / 256.f;
 	float octet = 1.f / (float)factor;
 
 	float v = (float)value / (float)fromMax;
