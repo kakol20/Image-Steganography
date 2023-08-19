@@ -9,13 +9,21 @@
 #include "../../ext/stb/stb_image.h"
 #include "../../ext/stb/stb_image_write.h"
 
+#include "../other/Log.h"
+
 Image::Image(const char* file, const int forceChannels) {
+	Log::StartLine();
 	if (!Image::Read(file, forceChannels)) {
-		std::cout << "Read failed " << file << '\n';
+		//std::cout << "Read failed " << file << '\n';
+		Log::Write("Read failed ");
 	}
 	else {
-		std::cout << "Read success " << file << '\n';
+		//std::cout << "Read success " << file << '\n';
+		Log::Write("Read success ");
 	}
+
+	Log::Write(file);
+	Log::EndLine();
 }
 
 Image::Image(const Image& other) {
@@ -83,21 +91,32 @@ bool Image::Write(const char* file) {
 		success = stbi_write_tga(file, m_w, m_h, m_channels, m_data);
 		break;
 	case Image::ImageType::NA:
-		std::cout << "File type not supported\nPNG, JPG, BMP or TGA";
+		//std::cout << "File type not supported\nPNG, JPG, BMP or TGA";
+		Log::StartLine();
+		Log::Write("File type not supported - PNG, JPG, BMP or TGA");
+		Log::EndLine();
 		success = 0;
 		break;
 	default:
-		std::cout << "File type not supported\nPNG, JPG, BMP or TGA";
+		Log::StartLine();
+		Log::Write("File type not supported - PNG, JPG, BMP or TGA");
+		Log::EndLine();
 		success = 0;
 		break;
 	}
 
+	Log::StartLine();
 	if (success != 0) {
-		std::cout << "Write success " << file << '\n';
+		//std::cout << "Write success " << file << '\n';
+		Log::Write("Write success ");
+		Log::Write(file);
 	}
 	else {
-		std::cout << "Write fail " << file << '\n';
+		//std::cout << "Write fail " << file << '\n';
+		Log::Write("Write fail ");
+		Log::Write(file);
 	}
+	Log::EndLine();
 
 	return success != 0;
 }
