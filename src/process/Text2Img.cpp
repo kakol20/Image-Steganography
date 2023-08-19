@@ -30,12 +30,28 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 		size_t bitSize = sizeof(char) * 8;
 
 		for (int i = (int)bitSize - 1; i >= 0; i -= (int)significantBits) {
+			// sigBits = 3
+			// i = 8
+			//	shift = 
+			// i = 5
+			// i = 
 			if (imageIndex == inputImg.GetSize()) break;
 
 			int bitshift = i - (significantBits - 1);
 
-			uint8_t bits = (bitMask << bitshift) & character;
-			bits = bits >> bitshift;
+			//uint8_t bits = (bitMask << bitshift) & character;
+			//bits = bits >> bitshift;
+			uint8_t bits = 0;
+
+			if (bitshift >= 0) {
+				bits = (bitMask << bitshift) & character;
+				bits = bits >> bitshift;
+			}
+			else {
+				bitshift *= -1;
+				bits = (bitMask >> bitshift) & character;
+				bits = bits << bitshift;
+			}
 
 			uint8_t imageData = inputImg.GetData(imageIndex);
 			imageData = (imageData & (~bitMask)) | bits;
