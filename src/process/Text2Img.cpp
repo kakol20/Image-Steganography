@@ -39,8 +39,9 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 
 			int bitshift = i - (significantBits - 1);
 
-			//uint8_t bits = (bitMask << bitshift) & character;
-			//bits = bits >> bitshift;
+			/*uint8_t bits = (bitMask << bitshift) & character;
+			bits = bits >> bitshift;*/
+
 			uint8_t bits = 0;
 
 			if (bitshift >= 0) {
