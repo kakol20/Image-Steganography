@@ -23,10 +23,23 @@ void Log::StartLine() {
 
 	localtime_s(&tmnow, &now);
 
-	std::string line = std::to_string(tmnow.tm_year + 1900) + "/"
-		+ std::to_string(tmnow.tm_mon + 1) + "/"
-		+ std::to_string(tmnow.tm_mday) + " "
-		+ std::to_string(tmnow.tm_hour) + ":" + std::to_string(tmnow.tm_min) + ":" + std::to_string(tmnow.tm_sec) + " ";
+	std::string month = std::to_string(tmnow.tm_mon + 1);
+	month = month.size() == 1 ? "0" + month : month;
+
+	std::string day = std::to_string(tmnow.tm_mday);
+	day = day.size() == 1 ? "0" + day : day;
+
+	std::string hour = std::to_string(tmnow.tm_hour);
+	hour = hour.size() == 1 ? "0" + hour : hour;
+
+	std::string min = std::to_string(tmnow.tm_min);
+	min = min.size() == 1 ? "0" + min : min;
+
+	std::string sec = std::to_string(tmnow.tm_sec);
+	sec = sec.size() == 1 ? "0" + sec : sec;
+
+	std::string line = std::to_string(tmnow.tm_year + 1900) + "/" + month + "/" + day + " "
+		+ hour + ":" + min + ":" + sec + " ";
 
 	std::cout << line;
 	Log::Console += line;
