@@ -40,6 +40,9 @@ int main(int argc, char* argv[]) {
 			runSettings["output"]);
 	}
 
+	Log::EndLine();
+	Log::Save(settings["overwrite_log"]);
+
 	std::cout << "Press enter to exit...\n";
 	std::cin.ignore();
 	return 0;

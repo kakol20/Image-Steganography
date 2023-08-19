@@ -1,6 +1,7 @@
 #include "Log.h"
 
 #include <iostream>
+#include <fstream>
 #include <ctime>
 
 std::string Log::Console = "";
@@ -29,4 +30,28 @@ void Log::StartLine() {
 
 	std::cout << line;
 	Log::Console += line;
+}
+
+void Log::Save(const bool overwrite) {
+	std::fstream consoleLog;
+	if (overwrite) {
+		consoleLog.open("console.log", std::ios_base::out);
+	}
+	else {
+		// checks if file exists
+		consoleLog.open("console.log", std::ios_base::in);
+
+		if (consoleLog.is_open()) {
+			// file exist
+			consoleLog.close();
+			consoleLog.open("console.log", std::ios_base::app);
+		}
+		else {
+			consoleLog.open("console.log", std::ios_base::out);
+		}
+	}
+
+	consoleLog << Log::Console;
+
+	consoleLog.close();
 }

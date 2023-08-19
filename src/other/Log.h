@@ -12,6 +12,8 @@ public:
 	static void EndLine();
 	static void StartLine();
 
+	static void Save(const bool overwrite = true);
+
 private:
 	static std::string Console;
 };
