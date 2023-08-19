@@ -18,6 +18,8 @@
 #include "process/Img2Img.h"
 #include "process/Text2Img.h"
 
+#include "other/Log.h"
+
 using json = nlohmann::json;
 
 // TODO: Reference additional headers your program requires here.

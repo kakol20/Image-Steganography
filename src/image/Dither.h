@@ -1,5 +1,4 @@
-#ifndef DITHER_H
-#define DITHER_H
+#pragma once
 
 #include <cstdint>
 
@@ -21,5 +20,3 @@ private:
 
 	static Image BlueNoiseThreshold;
 };
-
-#endif // !DITHER_H
