@@ -79,7 +79,10 @@ uint8_t Dither::Run(const uint8_t value, const int x, const int y, const int fac
 
 	//if (!ditherMapIMG.Read(ditherMap, 1)) return -1;
 
-	size_t index = size_t((x % Dither::ThresholdMap.GetWidth()) + (y % Dither::ThresholdMap.GetHeight()) * Dither::ThresholdMap.GetWidth());
+	int l_x = x % Dither::ThresholdMap.GetWidth();
+	int l_y = y % Dither::ThresholdMap.GetHeight();
+	size_t index = (size_t)(l_x + l_y * Dither::ThresholdMap.GetWidth());
+
 	uint8_t data = Dither::ThresholdMap.GetData(index);
 	float threshold = (float)data / 256.f;
 
