@@ -17,9 +17,9 @@
     "output": "data/img2img.png",
     "hiddenImg": "data/rubik.png",
     "significant_bits_img": "data/lsb_img2img.png",
-    "significant_bits": 2,
+    "significant_bits": 3,
     "repeat": true,
     "dithered": true,
-    "dither_map": "data/blue_noise.png"
+    "dither_map": "data/bayer.png"
   }
 }
