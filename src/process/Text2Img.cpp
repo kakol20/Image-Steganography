@@ -3,11 +3,15 @@
 #include <cmath>
 
 #include "../image/Image.h"
+#include "../other/Txt.h"
 
-void Text2Img::Run(const std::string in, const std::string out, const std::string significantBitsImg, const int significantBits, const bool repeat, const std::string text) {
+void Text2Img::Run(const std::string in, const std::string out, const std::string significantBitsImg, const int significantBits, const bool repeat, const std::string textFile) {
 
 	Image inputImg;
 	if (!inputImg.Read(in.c_str(), 3)) return;
+
+	Txt text;
+	if (!text.Read(textFile.c_str())) return;
 
 	Image outputImg = inputImg;
 	Image sigBits = inputImg;
@@ -23,11 +27,11 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 
 	// generate steganography image
 	while (imageIndex < inputImg.GetSize()) {
-		if (dataIndex == text.size() && !repeat) break;
+		if (dataIndex == text.GetText().size() && !repeat) break;
 
-		dataIndex = dataIndex % text.size();
+		dataIndex = dataIndex % text.GetText().size();
 
-		uint8_t character = (uint8_t)text[dataIndex];
+		uint8_t character = (uint8_t)text.GetText()[dataIndex];
 		size_t bitSize = sizeof(char) * 8;
 
 		for (int i = (int)bitSize - 1; i >= 0; i -= (int)significantBits) {

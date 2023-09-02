@@ -20,7 +20,8 @@ add_executable (IMGSteganography "src/main.h"
 	"src/process/Text2Img.cpp" 
 	"src/process/Img2Img.cpp" 
 	"src/image/Dither.cpp" 
-	"src/other/Log.cpp")
+	"src/other/Log.cpp" 
+	"src/other/Txt.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET IMGSteganography PROPERTY CXX_STANDARD 20)
