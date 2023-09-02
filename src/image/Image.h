@@ -7,8 +7,10 @@
 /// </summary>
 class Image {
 public:
+	Image();
 	Image(const char* file, const int forceChannels = 0);
 	Image(const Image& other);
+	Image(const int w, const int h, const int channels);
 	~Image();
 
 	Image operator=(const Image& other);

@@ -6,7 +6,8 @@
 
 void Text2Img::Run(const std::string in, const std::string out, const std::string significantBitsImg, const int significantBits, const bool repeat, const std::string text) {
 
-	Image inputImg(in.c_str(), 3);
+	Image inputImg;
+	if (!inputImg.Read(in.c_str(), 3)) return;
 
 	Image outputImg = inputImg;
 	Image sigBits = inputImg;

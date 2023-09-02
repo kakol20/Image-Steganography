@@ -13,7 +13,8 @@ public:
 		const int significantBits,
 		const bool repeat,
 		const bool dithered,
-		const std::string outputImg);
+		const std::string outputImg,
+		const std::string ditherMap);
 
 private:
 	static size_t GetIndex(const int x, const int y, const int w, const int channels);

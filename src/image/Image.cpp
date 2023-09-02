@@ -11,19 +11,16 @@
 
 #include "../other/Log.h"
 
-Image::Image(const char* file, const int forceChannels) {
-	Log::StartLine();
-	if (!Image::Read(file, forceChannels)) {
-		//std::cout << "Read failed " << file << '\n';
-		Log::Write("Read failed ");
-	}
-	else {
-		//std::cout << "Read success " << file << '\n';
-		Log::Write("Read success ");
-	}
+Image::Image() {
+	m_h = 0;
+	m_w = 0;
+	m_channels = 0;
+	m_size = 0;
+	m_data = nullptr;
+}
 
-	Log::Write(file);
-	Log::EndLine();
+Image::Image(const char* file, const int forceChannels) {
+	Image::Read(file, forceChannels);
 }
 
 Image::Image(const Image& other) {
@@ -37,6 +34,15 @@ Image::Image(const Image& other) {
 	m_data = new uint8_t[m_size];
 
 	memcpy(m_data, other.m_data, m_size);
+}
+
+Image::Image(const int w, const int h, const int channels) {
+	m_w = w;
+	m_h = h;
+	m_channels = channels;
+	m_size = (size_t)(m_w * m_h * m_channels);
+
+	m_data = new uint8_t[m_size];
 }
 
 Image::~Image() {
@@ -61,6 +67,7 @@ Image Image::operator=(const Image& other) {
 }
 
 bool Image::Read(const char* file, const int forceChannels) {
+	Log::StartLine();
 	if (forceChannels > 0 && forceChannels <= 4) {
 		m_data = stbi_load(file, &m_w, &m_h, &m_channels, forceChannels);
 	}
@@ -68,7 +75,17 @@ bool Image::Read(const char* file, const int forceChannels) {
 		m_data = stbi_load(file, &m_w, &m_h, &m_channels, 0);
 	}
 
+	if (m_data != NULL) {
+		Log::Write("Read success ");
+	}
+	else {
+		Log::Write("Read failed ");
+	}
+
 	m_size = (size_t)(m_w * m_h * m_channels);
+
+	Log::Write(file);
+	Log::EndLine();
 
 	return m_data != NULL;
 }

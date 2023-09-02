@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
 	// Read settings.json
 
 	std::ifstream f("settings.json");
-	json settings = json::parse(f, nullptr, true, true);
+	json settings = json::parse(f);
 
 	/*bool repeat = settings["repeat"];
 	std::string dataInput = settings["text"];
@@ -17,6 +17,8 @@ int main(int argc, char* argv[]) {
 	unsigned int significantBits = settings["significant_bits"];*/
 
 	//Dither::Init();
+
+	//Dither::SaveBayer();
 
 	auto& processes = settings["process"];
 
@@ -39,7 +41,8 @@ int main(int argc, char* argv[]) {
 				runSettings["significant_bits"],
 				runSettings["repeat"],
 				runSettings["dithered"],
-				runSettings["output"]);
+				runSettings["output"],
+				runSettings["dither_map"]);
 		}
 
 		Log::EndLine();

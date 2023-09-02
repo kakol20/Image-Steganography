@@ -5,9 +5,17 @@
 #include "../image/Image.h"
 #include "../image/Dither.h"
 
-void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const std::string significantBitsImg, const int significantBits, const bool repeat, const bool dithered, const std::string outputImg) {
-	Image base(baseImg.c_str(), 3);
-	Image hidden(hiddenImg.c_str(), 3);
+void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const std::string significantBitsImg, const int significantBits, const bool repeat, const bool dithered, const std::string outputImg, const std::string ditherMap) {
+	//Image base(baseImg.c_str(), 3);
+	//Image hidden(hiddenImg.c_str(), 3);
+
+	Image base;
+	if (!base.Read(baseImg.c_str(), 3)) return;
+
+	Image hidden;
+	if (!hidden.Read(hiddenImg.c_str(), 3)) return;
+
+	if (!Dither::LoadThreshold(ditherMap.c_str())) return;
 
 	Image output = base;
 
@@ -35,7 +43,8 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 
 				if (dithered) {
 					// do nothing for now
-					uint8_t hiddenData = Dither::BlueNoiseDither(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
+					//uint8_t hiddenData = Dither::BlueNoiseDither(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
+					uint8_t hiddenData = Dither::Run(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
 
 					output.SetData(baseIndex + i, baseData | hiddenData);
 				}
