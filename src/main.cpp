@@ -18,29 +18,34 @@ int main(int argc, char* argv[]) {
 
 	//Dither::Init();
 
-	std::string process = settings["process"];
+	auto& processes = settings["process"];
 
-	if (process == "text2img") {
-		auto& runSettings = settings[process.c_str()];
-		Text2Img::Run(runSettings["in"],
-			runSettings["out"],
-			runSettings["significant_bits_img"],
-			runSettings["significant_bits"],
-			runSettings["repeat"],
-			runSettings["text"]);
-	}
-	else if (process == "img2img") {
-		auto& runSettings = settings[process.c_str()];
-		Img2Img::Run(runSettings["baseImg"],
-			runSettings["hiddenImg"],
-			runSettings["significant_bits_img"],
-			runSettings["significant_bits"],
-			runSettings["repeat"],
-			runSettings["dithered"],
-			runSettings["output"]);
+	for (size_t i = 0; i < processes.size(); i++) {
+		std::string process = processes[i];
+		if (process == "text2img") {
+			auto& runSettings = settings[process.c_str()];
+			Text2Img::Run(runSettings["in"],
+				runSettings["out"],
+				runSettings["significant_bits_img"],
+				runSettings["significant_bits"],
+				runSettings["repeat"],
+				runSettings["text"]);
+		}
+		else if (process == "img2img") {
+			auto& runSettings = settings[process.c_str()];
+			Img2Img::Run(runSettings["baseImg"],
+				runSettings["hiddenImg"],
+				runSettings["significant_bits_img"],
+				runSettings["significant_bits"],
+				runSettings["repeat"],
+				runSettings["dithered"],
+				runSettings["output"]);
+		}
+
+		Log::EndLine();
 	}
 
-	Log::EndLine();
+	//Log::EndLine();
 	Log::Save(settings["overwrite_log"]);
 
 	std::cout << "Press enter to exit...\n";
