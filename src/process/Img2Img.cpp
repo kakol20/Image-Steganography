@@ -19,6 +19,8 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 
 	Image output = base;
 
+	Image lsb = output;
+
 	uint8_t bitMask = 0;
 	for (int i = 0; i < (int)significantBits; i++) {
 		bitMask = bitMask | (0b1 << i);
@@ -41,29 +43,24 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 			for (size_t i = 0; i < 3; i++) {
 				uint8_t baseData = base.GetData(baseIndex + i) & (~bitMask);
 
+				uint8_t hiddenData = 0;
+
 				if (dithered) {
 					// do nothing for now
 					//uint8_t hiddenData = Dither::BlueNoiseDither(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
-					uint8_t hiddenData = Dither::Run(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
+					hiddenData = Dither::Run(hidden.GetData(hiddenIndex + i), x, y, (int)bitMask, 255, (int)bitMask);
 
 					output.SetData(baseIndex + i, baseData | hiddenData);
 				}
 				else {
-					uint8_t hiddenData = (hidden.GetData(hiddenIndex + i) >> shiftRight) & bitMask;
+					hiddenData = (hidden.GetData(hiddenIndex + i) >> shiftRight) & bitMask;
 
 					output.SetData(baseIndex + i, baseData | hiddenData);
 				}
+
+				lsb.SetData(baseIndex + i, uint8_t((255 * (int)hiddenData) / (int)bitMask));
 			}
 		}
-	}
-
-	Image lsb = output;
-
-	for (size_t i = 0; i < lsb.GetSize(); i++) {
-		uint8_t data = lsb.GetData(i) & bitMask;
-
-		data = (uint8_t)std::roundf((255.f / (float)bitMask) * (float)data);
-		lsb.SetData(i, data);
 	}
 
 	output.Write(outputImg.c_str());
