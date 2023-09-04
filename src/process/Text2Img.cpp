@@ -25,6 +25,8 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 		bitMask = bitMask | (0b1 << i);
 	}
 
+	int mul = (2 << 7) / (2 << (significantBits - 1));
+
 	// generate steganography image
 	while (imageIndex < inputImg.GetSize()) {
 		if (dataIndex == text.GetText().size() && !repeat) break;
@@ -64,6 +66,8 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 
 			outputImg.SetData(imageIndex, imageData);
 
+			sigBits.SetData(imageIndex, (uint8_t)((255 * (int)bits) / (int)bitMask));
+
 			imageIndex++;
 		}
 
@@ -71,12 +75,6 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 	}
 	
 	// generate least significant bits image
-
-	for (size_t i = 0; i < inputImg.GetSize(); i++) {
-		uint8_t leastSignificantBits = (uint8_t)std::roundf((255.f / (float)bitMask) * (float)(outputImg.GetData(i) & bitMask));
-
-		sigBits.SetData(i, leastSignificantBits);
-	}
 
 	outputImg.Write(out.c_str());
 	sigBits.Write(significantBitsImg.c_str());
