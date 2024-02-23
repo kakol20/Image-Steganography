@@ -1,25 +1,25 @@
 {
-  "process": [
-    "img2img",
-    "text2img"
-  ],
   "overwrite_log": true,
-  "text2img": {
-    "in": "data/img2img.png",
-    "out": "data/text2img.png",
-    "significant_bits_img": "data/lsb_text2img.png",
-    "significant_bits": 1,
-    "repeat": true,
-    "text": "data/loremIpsum.txt"
-  },
-  "img2img": {
-    "baseImg": "data/suzanne.png",
-    "output": "data/img2img.png",
-    "hiddenImg": "data/rubik.png",
-    "significant_bits_img": "data/lsb_img2img.png",
-    "significant_bits": 3,
-    "repeat": true,
-    "dithered": true,
-    "dither_map": "data/bayer.png"
-  }
+  "process": [
+    {
+      "type": "img2img",
+      "baseImg": "data/suzanne.png",
+      "output": "data/img2img.png",
+      "hiddenImg": "data/rubik.png",
+      "significant_bits_img": "data/lsb_img2img.png",
+      "significant_bits": 3,
+      "repeat": true,
+      "dithered": true,
+      "dither_map": "data/bayer.png"
+    },
+    {
+      "type": "text2img",
+      "in": "data/img2img.png",
+      "out": "data/text2img.png",
+      "significant_bits_img": "data/lsb_text2img.png",
+      "significant_bits": 1,
+      "repeat": true,
+      "text": "data/loremIpsum.txt"
+    }
+  ]
 }
