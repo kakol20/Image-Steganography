@@ -1,6 +1,9 @@
 # Image Steganography
 Image Steganography
 
+# JSON
+Comments in settings.json not supported
+
 # Credits
 
 [stb_image](https://github.com/nothings/stb)  
