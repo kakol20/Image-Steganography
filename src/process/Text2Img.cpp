@@ -8,7 +8,7 @@
 void Text2Img::Run(const std::string in, const std::string out, const std::string significantBitsImg, const int significantBits, const bool repeat, const std::string textFile) {
 
 	Image inputImg;
-	if (!inputImg.Read(in.c_str(), 3)) return;
+	if (!inputImg.Read(in.c_str())) return;
 
 	Txt text;
 	if (!text.Read(textFile.c_str())) return;
