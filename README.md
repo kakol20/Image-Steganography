@@ -1,7 +1,7 @@
 # Image Steganography
 Image Steganography
 
-# JSON
+## JSON
 Comments in settings.json not supported
 
 # Credits
