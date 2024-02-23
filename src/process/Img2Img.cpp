@@ -10,10 +10,12 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 	//Image hidden(hiddenImg.c_str(), 3);
 
 	Image base;
-	if (!base.Read(baseImg.c_str(), 3)) return;
+	if (!base.Read(baseImg.c_str())) return;
+
+	const int channels = base.GetChannels();
 
 	Image hidden;
-	if (!hidden.Read(hiddenImg.c_str(), 3)) return;
+	if (!hidden.Read(hiddenImg.c_str(), channels)) return;
 
 	if (!Dither::LoadThreshold(ditherMap.c_str())) return;
 
@@ -37,10 +39,10 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 
 			int hiddenY = repeat ? y % hidden.GetHeight() : y;
 
-			size_t baseIndex = Img2Img::GetIndex(x, y, base.GetWidth(), 3);
-			size_t hiddenIndex = Img2Img::GetIndex(hiddenX, hiddenY, hidden.GetWidth(), 3);
-			
-			for (size_t i = 0; i < 3; i++) {
+			size_t baseIndex = Img2Img::GetIndex(x, y, base.GetWidth(), channels);
+			size_t hiddenIndex = Img2Img::GetIndex(hiddenX, hiddenY, hidden.GetWidth(), channels);
+
+			for (size_t i = 0; i < channels; i++) {
 				uint8_t baseData = base.GetData(baseIndex + i) & (~bitMask);
 
 				uint8_t hiddenData = 0;
