@@ -7,49 +7,45 @@ int main(int argc, char* argv[]) {
 	// Read settings.json
 
 	std::ifstream f("settings.json");
-	json settings = json::parse(f);
 
-	/*bool repeat = settings["repeat"];
-	std::string dataInput = settings["text"];
-	std::string input = settings["in"];
-	std::string output = settings["out"];
-	std::string sigBitImg = settings["significant_bits_img"];
-	unsigned int significantBits = settings["significant_bits"];*/
+	if (f) {
+		json settings = json::parse(f);
 
-	//Dither::Init();
+		auto& processes = settings["process"];
 
-	//Dither::SaveBayer();
+		for (size_t i = 0; i < processes.size(); i++) {
+			auto& runSettings = processes[i];
+			std::string process = runSettings["type"];
 
-	auto& processes = settings["process"];
+			if (process == "img2img") {
+				Img2Img::Run(runSettings["baseImg"],
+					runSettings["hiddenImg"],
+					runSettings["significant_bits_img"],
+					runSettings["significant_bits"],
+					runSettings["repeat"],
+					runSettings["dithered"],
+					runSettings["output"],
+					runSettings["dither_map"]);
+			}
+			else if (process == "text2img") {
+				Text2Img::Run(runSettings["in"],
+					runSettings["out"],
+					runSettings["significant_bits_img"],
+					runSettings["significant_bits"],
+					runSettings["repeat"],
+					runSettings["text"]);
+			}
 
-	for (size_t i = 0; i < processes.size(); i++) {
-		std::string process = processes[i];
-		if (process == "text2img") {
-			auto& runSettings = settings[process.c_str()];
-			Text2Img::Run(runSettings["in"],
-				runSettings["out"],
-				runSettings["significant_bits_img"],
-				runSettings["significant_bits"],
-				runSettings["repeat"],
-				runSettings["text"]);
+			Log::EndLine();
 		}
-		else if (process == "img2img") {
-			auto& runSettings = settings[process.c_str()];
-			Img2Img::Run(runSettings["baseImg"],
-				runSettings["hiddenImg"],
-				runSettings["significant_bits_img"],
-				runSettings["significant_bits"],
-				runSettings["repeat"],
-				runSettings["dithered"],
-				runSettings["output"],
-				runSettings["dither_map"]);
-		}
-
-		Log::EndLine();
+		Log::Save(settings["overwrite_log"]);
 	}
-
-	//Log::EndLine();
-	Log::Save(settings["overwrite_log"]);
+	else {
+		Log::StartLine();
+		Log::Write("settings.json not found");
+		Log::EndLine();
+		Log::Save(true);
+	}
 
 	std::cout << "Press enter to exit...\n";
 	std::cin.ignore();

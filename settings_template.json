@@ -1,0 +1,26 @@
+{
+  "overwrite_log": true,
+  // order in array is process order
+  "process": [
+    {
+      "type": "text2img",
+      "in": "data/base.png",
+      "out": "data/text2img.png",
+      "significant_bits_img": "data/lsb_text2img.png",
+      "significant_bits": 1,
+      "repeat": true,
+      "text": "data/text.txt"
+    },
+    {
+      "type": "img2img",
+      "baseImg": "data/base.png",
+      "output": "data/img2img.png",
+      "hiddenImg": "data/hidden.png",
+      "significant_bits_img": "data/lsb_img2img.png",
+      "significant_bits": 2,
+      "repeat": true,
+      "dithered": true,
+      "dither_map": "data/dither_map.png"
+    }
+  ]
+}
