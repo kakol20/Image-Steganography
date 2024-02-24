@@ -20,12 +20,9 @@ void Text2Img::Run(const std::string in, const std::string out, const std::strin
 	size_t imageIndex = 0;
 	size_t dataIndex = 0;
 
-	uint8_t bitMask = 0;
-	for (int i = 0; i < (int)significantBits; i++) {
-		bitMask = bitMask | (0b1 << i);
-	}
+	const uint8_t bitMask = ~((~0) << significantBits);
 
-	int mul = (2 << 7) / (2 << (significantBits - 1));
+	//int mul = (2 << 7) / (2 << (significantBits - 1));
 
 	// generate steganography image
 	while (imageIndex < inputImg.GetSize()) {

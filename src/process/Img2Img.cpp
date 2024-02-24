@@ -23,10 +23,8 @@ void Img2Img::Run(const std::string baseImg, const std::string hiddenImg, const 
 
 	Image lsb = output;
 
-	uint8_t bitMask = 0;
-	for (int i = 0; i < (int)significantBits; i++) {
-		bitMask = bitMask | (0b1 << i);
-	}
+	const uint8_t bitMask = ~((~0) << significantBits);
+
 	int shiftRight = 8 - significantBits;
 
 	for (int x = 0; x < base.GetWidth(); x++) {
