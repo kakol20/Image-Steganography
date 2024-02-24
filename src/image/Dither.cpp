@@ -100,5 +100,4 @@ uint8_t Dither::Run(const uint8_t value, const int x, const int y, const int fac
 	v *= (float)toMax;
 
 	return (uint8_t)std::roundf(v);
-	return 0;
 }
